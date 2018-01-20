@@ -1,0 +1,142 @@
+<div class="container">
+
+  <!-- INICIO Formulário de nova tarefa -->
+  <div class="row m-t-md">
+    <div class="col-md-10 col-md-offset-1">
+
+      <div class="ibox">
+        <div class="ibox-content">
+
+          <form [formGroup]="formulario" (ngSubmit)="salvarTarefa()">
+            <h4>Adicionar tarefa</h4>
+
+            <div class="row">
+              <div class="col-md-4 form-group">
+                <input type="text" placeholder="Título" class="input form-control"
+                       [(ngModel)]="tarefaEdicao.titulo" formControlName="titulo">
+              </div>
+              <div class="col-md-6 form-group">
+                <input type="text" placeholder="Descrição" class="input form-control"
+                       [(ngModel)]="tarefaEdicao.descricao" formControlName="descricao">
+              </div>
+              <div class="col-md-2 form-group">
+                <button type="submit" class="btn form-control">
+
+                  <!-- Angular 4.0 ngIf else layout -->
+                  <span *ngIf="!inserindo; else templateInserindo"><i class="fa fa-plus"></i> Adicionar </span>
+                  <ng-template #templateInserindo> Adicionando...</ng-template>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <!-- FIM Formulário de nova tarefa -->
+
+  <!-- INICIO Listas de tarefas -->
+  <div class="row">
+
+    <!-- INICIO Lista de tarefas pendentes -->
+    <div class="col-md-5 col-md-offset-1">
+      <div class="ibox">
+        <div class="ibox-content">
+          <h4>Tarefas pendentes</h4>
+
+          <ul class="sortable-list connectList agile-list" dnd-droppable
+              (onDropSuccess)="marcarTarefaComoNaoConcluida($event.dragData)">
+
+            <li class="warning-element" *ngFor="let tarefa of tarefasPendentes"
+                dnd-draggable [dragEnabled]="true" [dragData]="tarefa">
+
+              <strong>
+                <span dnd-draggable-handle>=</span>&nbsp;
+                <span class="badge badge-warning-light text-unselectable">
+                  Pendente
+                </span>
+                {{tarefa.titulo}}
+              </strong>
+
+              <p class="m-t-xs m-b-xs" *ngIf="tarefa.descricao">Descrição: {{tarefa.descricao}}</p>
+
+              <div class="agile-detail">
+                <a class="pull-right btn btn-xs btn-white" (click)="excluirTarefa(tarefasPendentes, tarefa)">
+                  <span>Excluir</span>
+                </a>
+                <a class="pull-right btn btn-xs btn-white m-r-sm" (click)="editarTarefa(tarefa)">
+                  <span>Editar</span>
+                </a>
+                <a class="pull-right btn btn-xs btn-white m-r-sm" (click)="marcarTarefaComoConcluida(tarefa)">
+                  <span>Concluir</span>
+                </a>
+                Data de criação: {{tarefa.dataCriacao | date :'dd/MM/yyyy'}}
+              </div>
+            </li>
+
+            <li class="text-center" *ngIf="buscando">
+              <h5>Buscando tarefas...</h5>
+            </li>
+
+            <li class="text-center" *ngIf="!buscando && tarefasPendentes.length === 0">
+              <h5>Você não possui nenhuma tarefa pendente.</h5>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- FIM Lista de tarefas pendentes -->
+
+    <!-- INICIO Lista de tarefas concluídas -->
+    <div class="col-md-5">
+      <div class="ibox">
+        <div class="ibox-content">
+          <h4>Tarefas concluídas</h4>
+
+          <ul class="sortable-list connectList agile-list" dnd-droppable
+              (onDropSuccess)="marcarTarefaComoConcluida($event.dragData)">
+
+            <li class="success-element" *ngFor="let tarefa of tarefasConcluidas"
+                dnd-draggable [dragEnabled]="true" [dragData]="tarefa">
+              <strong>
+                <span dnd-draggable-handle>=</span>&nbsp;
+                <span class="badge badge-primary text-unselectable">
+                  Concluída
+                </span>
+                {{tarefa.titulo}}
+              </strong>
+
+              <p class="m-t-xs m-b-xs" *ngIf="tarefa.descricao">Descrição: {{tarefa.descricao}}</p>
+
+              <div class="agile-detail">
+                <a class="pull-right btn btn-xs btn-white" (click)="excluirTarefa(tarefasConcluidas, tarefa)">
+                  <span>Excluir</span>
+                </a>
+                <a class="pull-right btn btn-xs btn-white m-r-sm" (click)="editarTarefa(tarefa)">
+                  <span>Editar</span>
+                </a>
+                <a class="pull-right btn btn-xs btn-white m-r-sm" (click)="marcarTarefaComoNaoConcluida(tarefa)">
+                  <span>Reabrir</span>
+                </a>
+                Data de criação: {{tarefa.dataCriacao | date :'dd/MM/yyyy'}}
+              </div>
+            </li>
+
+            <li class="text-center" *ngIf="buscando">
+              <h5>Buscando tarefas...</h5>
+            </li>
+
+            <li class="text-center" *ngIf="!buscando && tarefasConcluidas.length === 0">
+              <h5>Você não possui nenhuma tarefa concluída.</h5>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- FIM Lista de tarefas concluídas -->
+
+  </div>
+  <!-- FIM Listas de tarefas -->
+
+</div>

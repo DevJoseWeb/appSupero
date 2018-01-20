@@ -1,0 +1,23 @@
+$icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
+$fa-font-path: "../../node_modules/font-awesome/fonts";
+$simple-line-font-path: "../../node_modules/simple-line-icons/fonts/";
+
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "../../node_modules/font-awesome/scss/font-awesome";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_mixins";
+
+@import "template/_variables";
+@import "template/_mixins";
+@import "template/_typography";
+@import "template/_buttons";
+@import "template/_badgets_labels";
+@import "template/_elements";
+@import "template/_sidebar";
+@import "template/_base";
+@import "template/_pages";
+@import "template/_roboto";
+@import "template/_utilities";
+
+html, body {
+  background-color: #efefef;
+}

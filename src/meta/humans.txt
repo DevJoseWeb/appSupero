@@ -1,0 +1,11 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+  Neri Bez Fontana -- <nerifontana@gmail.com>
+
+# TECHNOLOGY COLOPHON
+
+  HTML5, CSS3, SASS
+  Angular2, TypeScript, Webpack
